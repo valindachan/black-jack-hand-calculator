@@ -1,20 +1,10 @@
-/*
-   Implement a Blackjack hand value calculator.
-
-   Open up the `index.html` file and your console
-   to watch the assertions pass as you write your code.
-
-   Also remember, that the parameter `hand` will be an array, so
-   you'll need to parse through that first before you can start to
-   write your logic.
-*/
-
 function handValue(hand) {
+  // Create array to hold numerical value of cards
   let convertedHand = []
 
   // Assign numerical values to each card except Aces
   // Put those numerical values to an array
-  // If card is an Ace, just put 'A' in the array
+  // If card is an Ace, just put 'A' in the array for now
   for (var i = 0; i < hand.length; i++) {
     let cardValue = 0
     if (hand[i] > 1 && hand[i] <= 10) {
@@ -27,22 +17,23 @@ function handValue(hand) {
     convertedHand.push(cardValue)
   }
 
-  // Decide what value 'A' should be according to summing all values except A
-
-  // First sum all values except A
-  // Then check handValue before adding any As
   let handValue = 0
-  // let arrayOfAIndices = []
 
+  // First sum up all values except A
   for (var i = 0; i < convertedHand.length; i++) {
     if (convertedHand[i] != "A") {
       handValue += convertedHand[i]
     }
   }
 
+  // Before assigning numerical values to the As (if any)
+  // Check the handValue so far
   for (var j = 0; j < convertedHand.length; j++) {
     let cardValue = 0
+
     if (convertedHand[j] === "A") {
+      // If the difference between the handValue and 21 is greater than 10,
+      // assign the ace to equal 11. If not, then assign the ace to equal 1
       if (21 - handValue > 10) {
         cardValue = 11
         handValue += cardValue
@@ -57,7 +48,7 @@ function handValue(hand) {
 
   return handValue
 }
-/* -----  Hints ------
+/* -----  Values ------
 
 1..10   ==> Worth face value (1 = 1, 4 = 4, etc)
 K, Q, J ==> Worth 10
