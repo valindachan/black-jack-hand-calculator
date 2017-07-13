@@ -32,31 +32,24 @@ function handValue(hand) {
   // First sum all values except A
   // Then check handValue before adding any As
   let handValue = 0
-  let _isAUnassigned
-
-  console.log(convertedHand)
+  // let arrayOfAIndices = []
 
   for (var i = 0; i < convertedHand.length; i++) {
-    // console.log(typeof convertedHand[i])
     if (convertedHand[i] != "A") {
       handValue += convertedHand[i]
-    } else {
-      _isAUnassigned = true
     }
   }
 
-  while (_isAUnassigned) {
+  for (var j = 0; j < convertedHand.length; j++) {
     let cardValue = 0
-    if (21 - handValue > 10) {
-      cardValue = 11
-      handValue += cardValue
-      _isAUnassigned = false
-      console.log(handValue)
-    } else {
-      cardValue = 1
-      handValue += cardValue
-      _isAUnassigned = false
-      console.log(handValue)
+    if (convertedHand[j] === "A") {
+      if (21 - handValue > 10) {
+        cardValue = 11
+        handValue += cardValue
+      } else {
+        cardValue = 1
+        handValue += cardValue
+      }
     }
   }
 
