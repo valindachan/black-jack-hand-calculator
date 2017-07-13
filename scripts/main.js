@@ -10,29 +10,60 @@
 */
 
 function handValue(hand) {
-  let handValue = 0
+  let convertedHand = []
 
+  // Assign numerical values to each card except Aces
+  // Put those numerical values to an array
+  // If card is an Ace, just put 'A' in the array
   for (var i = 0; i < hand.length; i++) {
     let cardValue = 0
-    if (hand[i] >= 1 && hand[i] <= 10) {
+    if (hand[i] > 1 && hand[i] <= 10) {
       cardValue = parseInt(hand[i])
     } else if (hand[i] === "K" || hand[i] === "Q" || hand[i] === "J") {
       cardValue = 10
     } else {
-      if (21 - handValue < 10) {
-        cardValue = 11
-      } else {
-        cardValue = 1
-      }
+      cardValue = "A"
     }
-    handValue += cardValue
+    convertedHand.push(cardValue)
   }
 
-  console.log(handValue)
+  // Decide what value 'A' should be according to summing all values except A
+
+  // First sum all values except A
+  // Then check handValue before adding any As
+  let handValue = 0
+  let _isAUnassigned
+
+  console.log(convertedHand)
+
+  for (var i = 0; i < convertedHand.length; i++) {
+    // console.log(typeof convertedHand[i])
+    if (convertedHand[i] != "A") {
+      handValue += convertedHand[i]
+    } else {
+      _isAUnassigned = true
+    }
+  }
+
+  while (_isAUnassigned) {
+    let cardValue = 0
+    if (21 - handValue > 10) {
+      cardValue = 11
+      handValue += cardValue
+      _isAUnassigned = false
+      console.log(handValue)
+    } else {
+      cardValue = 1
+      handValue += cardValue
+      _isAUnassigned = false
+      console.log(handValue)
+    }
+  }
+
+  // console.log(handValue)
 
   return handValue
 }
-
 /* -----  Hints ------
 
 1..10   ==> Worth face value (1 = 1, 4 = 4, etc)
